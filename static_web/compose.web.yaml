@@ -1,0 +1,16 @@
+volumes:
+  caddy_data:
+  caddy_config:
+
+services:
+  caddy:
+    image: caddy
+    restart: unless-stopped
+    volumes:
+      - ./conf/Caddyfile:/etc/caddy/Caddyfile # custom caddy config
+      - ./site:/usr/share/caddy # custom web files
+      # - caddy_data:/data # persist data
+      # - caddy_config:/config # persist config
+    ports:
+      - 8001:80
+      - 8443:443
