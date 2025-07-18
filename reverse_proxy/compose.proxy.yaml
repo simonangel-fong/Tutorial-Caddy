@@ -1,0 +1,32 @@
+volumes:
+  caddy_data:
+  caddy_config:
+
+services:
+  caddy:
+    image: caddy
+    container_name: caddy-server
+    restart: unless-stopped
+    volumes:
+      - ./conf/Caddyfile:/etc/caddy/Caddyfile # custom caddy config
+    ports:
+      - 8001:80
+      - 8443:443
+
+  app1:
+    container_name: fastapi-app1
+    restart: unless-stopped
+    build: .
+    environment:
+      - "APP_NAME=app1"
+    expose:
+      - "8000"
+
+  app2:
+    container_name: fastapi-app2
+    restart: unless-stopped
+    build: .
+    environment:
+      - "APP_NAME=app2"
+    expose:
+      - "8000"

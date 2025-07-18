@@ -1,0 +1,11 @@
+:80 {
+    redir /app1 /app1/
+    handle_path /app1/* {
+        reverse_proxy app1:8000
+    }
+
+    redir /app2 /app2/
+    handle_path /app2/* {
+        reverse_proxy app2:8000
+    }
+}
